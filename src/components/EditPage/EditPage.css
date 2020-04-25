@@ -1,0 +1,10 @@
+.Announce {
+	color: red;
+	font-size: 18px;
+}
+
+.EditDiv {
+	padding: auto;
+	border: 2px dashed;
+	margin: 10px 0px;
+}
