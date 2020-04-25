@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import MovieList from "../MovieInventory/MovieInventory";
+import MovieList from "../MovieList/MovieList";
 import MovieDetail from "../MovieDetail/MovieDetail";
 
 class App extends Component {

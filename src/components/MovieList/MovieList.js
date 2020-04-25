@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import "./MovieList.css";
 
-class MovieInventory extends Component {
+class MovieList extends Component {
 	render() {
 		return (
 			<div className="ListDiv">
