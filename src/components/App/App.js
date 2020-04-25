@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import MovieInventory from "../MovieInventory/MovieInventory";
+import MovieList from "../MovieInventory/MovieInventory";
 import MovieDetail from "../MovieDetail/MovieDetail";
 
 class App extends Component {
@@ -10,7 +10,7 @@ class App extends Component {
 			<div className="App">
 				<h1>Movie Night Options!</h1>
 				<div className="Temp_align">
-					<MovieInventory />
+					<MovieList />
 					<MovieDetail />
 				</div>
 			</div>
