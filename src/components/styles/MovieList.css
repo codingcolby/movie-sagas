@@ -1,0 +1,10 @@
+.Announce {
+	color: red;
+	font-size: 18px;
+}
+
+.ListDiv {
+	text-align: left;
+	padding: 5px;
+	border: 2px dashed;
+}
