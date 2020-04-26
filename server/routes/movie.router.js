@@ -13,7 +13,7 @@ const router = express.Router();
 // };
 
 router.get("/", (req, res) => {
-	const queryText = "SELECT * FROM movie";
+	const queryText = "SELECT * FROM movies";
 	pool
 		.query(queryText)
 		.then((result) => {
@@ -25,8 +25,13 @@ router.get("/", (req, res) => {
 		});
 });
 
-router.get("/moviedetail/:movie_id", (req, res) => {
-	const queryText = "SELECT title, description FROM movie WHERE movie_id=$1";
+router.get("/details/:movie_id", (req, res) => {
+	const queryText = `SELECT "movies".title, "movies".description, "genres".name 
+	FROM "movies"
+	JOIN "genre_associations" ON "movies".movie_id = "genre_associations".movie_id 
+	JOIN "genres" ON "genre_associations".genre_id = "genres".genre_id 
+	WHERE "movies".movie_id=$1;`;
+
 	pool
 		.query(queryText, [req.params.movie_id])
 		.then((result) => {
@@ -41,13 +46,13 @@ router.get("/moviedetail/:movie_id", (req, res) => {
 router.put("/edit", (req, res) => {
 	const updateMovie = req.body;
 
-	const queryText = `UPDATE movie
-  SET 
-  "movie_id" = $1,
-  "title" = $2,
-  "poster" = $3,
-  "description" = $4, 
-  WHERE movie_id=$1;`;
+	const queryText = `UPDATE movie 
+	SET 
+	"movie_id" = $1,
+	"title" = $2,
+	"poster" = $3,
+	"description" = $4, 
+	WHERE movie_id=$1;`;
 
 	const queryValues = [
 		updateMovie.movie_id,
@@ -74,23 +79,23 @@ router.put("/edit", (req, res) => {
 // 	name: "",
 // };
 
-router.post("/", (req, res) => {
-	const newGenre = req.body;
-	const queryText = `INSERT INTO genre ("name")
-                    VALUES ($1)`;
-	const queryValues = [newGenre.name];
-	pool
-		.query(queryText, queryValues)
-		.then(() => {
-			res.sendStatus(201);
-		})
-		.catch((err) => {
-			console.log("Error completing INSERT genre query", err);
-			res.sendStatus(500);
-		});
-});
-
 // -- STRETCH --
+// router.post("/", (req, res) => {
+// 	const newGenre = req.body;
+// 	const queryText = `INSERT INTO genre ("name")
+//                     VALUES ($1)`;
+// 	const queryValues = [newGenre.name];
+// 	pool
+// 		.query(queryText, queryValues)
+// 		.then(() => {
+// 			res.sendStatus(201);
+// 		})
+// 		.catch((err) => {
+// 			console.log("Error completing INSERT genre query", err);
+// 			res.sendStatus(500);
+// 		});
+// });
+
 // router.put("/admingenre", (req, res) => {
 // 	const update = req.body;
 
