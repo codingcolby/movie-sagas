@@ -13,7 +13,7 @@ const router = express.Router();
 // };
 
 router.get("/", (req, res) => {
-	const queryText = "SELECT * name FROM movie";
+	const queryText = "SELECT * FROM movie";
 	pool
 		.query(queryText)
 		.then((result) => {
@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/moviedetail/:movie_id", (req, res) => {
-	const queryText = "SELECT * FROM movie WHERE movie_id=$1";
+	const queryText = "SELECT title, description FROM movie WHERE movie_id=$1";
 	pool
 		.query(queryText, [req.params.movie_id])
 		.then((result) => {
@@ -43,13 +43,16 @@ router.put("/edit", (req, res) => {
 
 	const queryText = `UPDATE movie
   SET 
+  "movie_id" = $1,
   "title" = $2,
+  "poster" = $3,
   "description" = $4, 
   WHERE movie_id=$1;`;
 
 	const queryValues = [
 		updateMovie.movie_id,
 		updateMovie.title,
+		updateMovie.poster,
 		updateMovie.description,
 	];
 
@@ -74,7 +77,7 @@ router.put("/edit", (req, res) => {
 router.post("/", (req, res) => {
 	const newGenre = req.body;
 	const queryText = `INSERT INTO genre ("name")
-                    VALUES ($2)`;
+                    VALUES ($1)`;
 	const queryValues = [newGenre.name];
 	pool
 		.query(queryText, queryValues)
@@ -87,38 +90,39 @@ router.post("/", (req, res) => {
 		});
 });
 
-router.put("/admingenre", (req, res) => {
-	const update = req.body;
+// -- STRETCH --
+// router.put("/admingenre", (req, res) => {
+// 	const update = req.body;
 
-	const queryText = `UPDATE genre
-  SET 
-"name" = $2,
-  WHERE genre_id=$1;`;
+// 	const queryText = `UPDATE genre
+//   SET
+// "name" = $2,
+//   WHERE genre_id=$1;`;
 
-	const queryValues = [updateGenre.genre_id, updateGenre.name];
+// 	const queryValues = [updateGenre.genre_id, updateGenre.name];
 
-	pool
-		.query(queryText, queryValues)
-		.then(() => {
-			res.sendStatus(200);
-		})
-		.catch((err) => {
-			console.log("Error completing UPDATE genre query", err);
-			res.sendStatus(500);
-		});
-});
+// 	pool
+// 		.query(queryText, queryValues)
+// 		.then(() => {
+// 			res.sendStatus(200);
+// 		})
+// 		.catch((err) => {
+// 			console.log("Error completing UPDATE genre query", err);
+// 			res.sendStatus(500);
+// 		});
+// });
 
-router.delete("/:genre_id", (req, res) => {
-	const queryText = "DELETE * FROM genre WHERE genre_id=$1";
-	pool
-		.query(queryText, [req.params.genre_id])
-		.then(() => {
-			res.sendStatus(200);
-		})
-		.catch((err) => {
-			console.log("Error completing DELETE genre query", err);
-			res.sendStatus(500);
-		});
-});
+// router.delete("/admingenre", (req, res) => {
+// 	const queryText = "DELETE * FROM genre WHERE genre_id=$1";
+// 	pool
+// 		.query(queryText, [req.params.genre_id])
+// 		.then(() => {
+// 			res.sendStatus(200);
+// 		})
+// 		.catch((err) => {
+// 			console.log("Error completing DELETE genre query", err);
+// 			res.sendStatus(500);
+// 		});
+// });
 
 module.exports = router;

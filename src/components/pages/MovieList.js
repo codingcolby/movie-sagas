@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "../styles/MovieList.css";
-import MovieListItem from "./MovieList";
+// import MovieListItem from "./MovieListItem";
 
 // !!! PRACTICE BRANCHING
 
@@ -28,11 +28,11 @@ class MovieList extends Component {
 	render() {
 		//const itemID = `this.props.item.${movie_id}`;
 
-		const movieListItem = this.props.reduxState.movieList.map((item, index) => (
-			<div key={index}>
-				<MovieListItem item={item} />
-			</div>
-		));
+		// const movieList = this.props.movieList.map((item, index) => (
+		// 	<div key={index}>
+		// 		<MovieList item={item} />
+		// 	</div>
+		// ));
 
 		return (
 			<div className="ListDiv">
@@ -44,19 +44,14 @@ class MovieList extends Component {
 					<tbody>
 						<tr>
 							<td
-								onClick={(event) => {
-									this.showDescription();
-								}}
+							// onClick={(event) => {
+							// 	this.showDescription();
+							// }}
 							>
-								<img src="TBA" alt="Movie Poster" />
-								<br />
-								<p>Click on poster to visit the movie detail page</p>
+								<MovieList />
 							</td>
 							<td>
-								<pre>{movieListItem}</pre>
-								Movie title
-								<br />
-								Description
+								<p>Something here</p>
 							</td>
 						</tr>
 					</tbody>

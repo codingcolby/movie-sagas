@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("build"));
 
 /** ---------- ROUTES ---------- **/
-app.use("/api/", movieRouter);
+app.use("/api/movie", movieRouter);
 
 /** ---------- START SERVER ---------- **/
 app.listen(port, function () {
