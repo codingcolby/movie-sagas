@@ -11,9 +11,16 @@ import "../styles/Admin.css";
 //STRETCH - login input: username (camera), password (action) returns Admin Interface with AdminManageGenres Route
 
 function* authenticateThenNav() {
+		if (action.type === AUTHENTICATE) {
+		  state.articles.push(action.payload);
+		}
+		return state;
+	  }
+		type: "AUTHENTICATE",
+		payload: "{ username: 'username', password: 'password' }"
+}
 	// check Credentials, if success return to Admin and display AdminManageGenres
 	// else return error/retry/rejection alert
-}
 
 function* movieListReturn() {
 	// nav to MovieList.js
