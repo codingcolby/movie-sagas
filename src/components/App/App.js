@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+import {
+	BrowserRouter as Router,
+	/* Switch ,*/ Route /* Link */,
+} from "react-router-dom";
 import "../styles/App.css";
 import MovieList from "../pages/MovieList";
 import MovieDetail from "../pages/MovieDetail";
@@ -15,9 +19,15 @@ class App extends Component {
 				<h1>Movie Night Options!</h1>
 				<Router>
 					<div className="Temp_align">
-						<MovieList />
-						<MovieDetail />
-						<EditMovie />
+						<Route path="/">
+							<MovieList />
+						</Route>
+						<Route path="/MovieDetail">
+							<MovieDetail />
+						</Route>
+						<Route path="/EditMovie">
+							<EditMovie />
+						</Route>
 					</div>
 				</Router>
 			</div>
