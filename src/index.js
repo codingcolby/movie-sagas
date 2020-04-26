@@ -15,6 +15,7 @@ import App from "./components/App/App.js";
 
 // STRETCH - move sagas and reducers into separate files ex: src/redux/reducers and src/redux/sagas
 
+// ----- MOVIES SAGAS-----
 function* readAllMovies(action) {
 	try {
 		const response = yield axios.get("/api/movie");
@@ -26,51 +27,62 @@ function* readAllMovies(action) {
 
 function* readMovie(action) {
 	try {
-		const response = yield axios.get("/api/movie");
+		const response = yield axios.get(`/api/moviedetail/${action.payload}`);
 		yield put({ type: "READ_MOVIE", payload: response.data });
 	} catch (err) {
 		console.warn("Error with readMovie:", err);
 	}
 }
 
-function* readGenre(action) {
-	try {
-		yield axios.get("api/movie, action.payload");
-		yield put({ type: "READ_GENRE" });
-	} catch (err) {
-		console.log("Error in readGenre:", err);
-	}
-}
 function* updateMovie(action) {
 	try {
-		yield axios.put("api/movie, action.payload");
+		yield axios.put("api/movie", action.payload);
 		yield put({ type: "UPDATE_MOVIE" });
 	} catch (err) {
 		console.log("Error in updateMovie:", err);
 	}
 }
-function* createGenre(action) {
+
+// ----- GENRES SAGAS -----
+function* readAllGenres(action) {
 	try {
-		yield axios.post("api/movie, action.payload");
-		yield put({ type: "CREATE_GENRE" });
+		const response = yield axios.get("/api/movie");
+		yield put({ type: "READ_ALL_GENRES", payload: response.data });
 	} catch (err) {
-		console.log("Error in createGenre:", err);
+		console.log("Error in readAllGenres:", err);
+	}
+}
+
+function* readGenre(action) {
+	try {
+		const response = yield axios.get(`/api/movie/${action.payload}`);
+		yield put({ type: "READ_GENRE", payload: response.data });
+	} catch (err) {
+		console.warn("Error with readGenre:", err);
 	}
 }
 
 function* updateGenre(action) {
-	// add a switch between movie and genre?
 	try {
-		yield axios.put("api/movie, action.payload");
+		yield axios.put("api/movie", action.payload);
 		yield put({ type: "UPDATE_GENRE" });
 	} catch (err) {
 		console.log("Error in updateGenre:", err);
 	}
 }
 
+function* createGenre(action) {
+	try {
+		yield axios.post("api/movie", action.payload);
+		yield put({ type: "CREATE_GENRE" });
+	} catch (err) {
+		console.log("Error in createGenre:", err);
+	}
+}
+
 function* disposeGenre(action) {
 	try {
-		yield axios.delete("api/movie, action.payload");
+		yield axios.delete("api/movie", action.payload);
 		yield put({ type: "DISPOSEOF" });
 	} catch (err) {
 		console.log("Error in disposeGenre:", err);
@@ -88,13 +100,19 @@ function* disposeGenre(action) {
 
 // Create the rootSaga generator function
 function* rootSaga() {
-	yield takeEvery("CREATE_GENRE", createGenre);
+	// ----- MOVIES YIELDS -----
 	yield takeEvery("READ_ALL_MOVIES", readAllMovies);
 	yield takeEvery("READ_MOVIE", readMovie);
-	yield takeEvery("READ_GENRE", readGenre);
 	yield takeEvery("UPDATE_MOVIE", updateMovie);
+
+	// ----- GENRES YIELDS -----
+	yield takeEvery("READ_ALL_GENRES", readAllGenres);
+	yield takeEvery("CREATE_GENRE", createGenre);
+	yield takeEvery("READ_GENRE", readGenre);
 	yield takeEvery("UPDATE_GENRE", updateGenre);
 	yield takeEvery("DISPOSEOF_GENRE", disposeGenre);
+
+	// ----- ADMIN YIELDS -----
 	// yield takeEvery("AUTHENTICATE", authenticate);
 }
 
@@ -102,30 +120,21 @@ function* rootSaga() {
 const sagaMiddleware = createSagaMiddleware();
 
 // Used to store movies returned from the server
+// ----- MOVIES REDUCER -----
 const moviesReducer = (state = [], action) => {
 	switch (action.type) {
-		case "CREATE":
+		case "READ_ALL_MOVIES":
 			return action.payload;
+		default:
+			return state;
 	}
-	switch (action.type) {
-		case "READ":
-			return action.payload;
-	}
-	switch (action.type) {
-		case "UPDATE":
-			return action.payload;
-	}
-	switch (action.type) {
-		case "DISPOSE":
-			return action.payload;
-	}
-	return state;
 };
 
+// ----- GENRES REDUCER -----
 // Used to store the movie genres
 const genresReducer = (state = [], action) => {
 	switch (action.type) {
-		case "SET_GENRES":
+		case "READ_ALL_GENRES":
 			return action.payload;
 		default:
 			return state;
@@ -151,4 +160,5 @@ ReactDOM.render(
 	</Provider>,
 	document.getElementById("root")
 );
+
 registerServiceWorker();
