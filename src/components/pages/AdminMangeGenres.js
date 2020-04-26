@@ -10,6 +10,10 @@ import "../styles/Admin.css";
 //STRETCH - all stretch
 //STRETCH - login input: username (camera), password (action) returns Admin Interface with AdminManageGenres Route
 
+state = {
+	newGenre: "",
+};
+
 function* AddGenreToDB() {
 	// adds genre input to the database, should return a confirmation such as a refreshed list display or error
 }
