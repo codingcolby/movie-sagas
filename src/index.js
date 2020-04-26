@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import registerServiceWorker from "./registerServiceWorker";
+import App from "./components/App/App.js";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import axios from "axios";
 // Provider allows us to use redux within our react app
@@ -11,14 +11,13 @@ import createSagaMiddleware from "redux-saga";
 import { takeEvery, put } from "redux-saga/effects";
 // Import project file dependencies
 import "../src/components/styles/index.css";
-import App from "./components/App/App.js";
 
 // STRETCH - move sagas and reducers into separate files ex: src/redux/reducers and src/redux/sagas
 
 // ----- MOVIES SAGAS-----
 function* readAllMovies(action) {
 	try {
-		const response = yield axios.get("/api/movie");
+		const response = yield axios.get(`/api/movie`);
 		yield put({ type: "READ_ALL_MOVIES", payload: response.data });
 	} catch (err) {
 		console.log("Error in readAllMovies:", err);
@@ -47,7 +46,7 @@ function* updateMovie(action) {
 // ?? should the axios get go to "/api/movie/genre" or "/api/genre"??
 function* readAllGenres(action) {
 	try {
-		const response = yield axios.get("/api/movie");
+		const response = yield axios.get(`/api/movie`);
 		yield put({ type: "READ_ALL_GENRES", payload: response.data });
 	} catch (err) {
 		console.log("Error in readAllGenres:", err);
@@ -74,7 +73,7 @@ function* updateGenre(action) {
 
 function* createGenre(action) {
 	try {
-		yield axios.post("api/movie", action.payload);
+		yield axios.post(`api/movie`, action.payload);
 		yield put({ type: "CREATE_GENRE" });
 	} catch (err) {
 		console.log("Error in createGenre:", err);
@@ -169,7 +168,6 @@ ReactDOM.render(
 	<Provider store={storeInstance}>
 		<App />
 	</Provider>,
+
 	document.getElementById("root")
 );
-
-registerServiceWorker();

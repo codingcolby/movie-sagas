@@ -12,7 +12,7 @@ const router = express.Router();
 // 	description: "",
 // };
 
-router.get("/", (req, res) => {
+router.get("/movies", (req, res) => {
 	const queryText = "SELECT * FROM movies";
 	pool
 		.query(queryText)
