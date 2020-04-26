@@ -12,8 +12,11 @@ import "../styles/EditMovie.css";
 
 class EditMovie extends Component {
 	state = {
-		title: "",
-		description: "",
+		updateMovie: {
+			// movie_id: "",
+			title: "",
+			description: "",
+		},
 	};
 
 	// modify and use later if input and textarea will autopopulate based on movie_id when page loads for title only, or title and description
@@ -21,21 +24,19 @@ class EditMovie extends Component {
 	// 	this.props.dispatch({ type: "READ" });
 	// }
 
-	handleChangeTitle = (event) => {
+	handleChanges = (event, property) => {
 		this.setState({
-			title: event.target.value,
-		});
-	};
-
-	handleChangeDescription = (event) => {
-		this.setState({
-			description: event.target.value,
+			updateMovie: {
+				...this.state.updateMovie,
+				[property]: event.target.value,
+			},
 		});
 	};
 
 	// no changes: clears input, navs to MovieDetail.js
 	cancel_detailReturnClick = (event) => {
 		this.setState({
+			// movie_id: "",
 			title: "",
 			description: "",
 		});
@@ -47,9 +48,10 @@ class EditMovie extends Component {
 	saveMovieEditToDB_detailReturnClick = (event) => {
 		this.props.dispatch({
 			type: "UPDATE",
-			payload: this.state,
+			payload: this.state.updateMovie,
 		});
 		this.setState({
+			// movie_id: "",
 			title: "",
 			description: "",
 		});
@@ -65,13 +67,21 @@ class EditMovie extends Component {
 					Edit Page for {this.redux.store.moviesReducer.title}
 				</p>
 				<input
-					onChange="this.handleChangeTitle"
 					type="text"
 					default={this.redux.store.moviesReducer.title}
+					value={this.state.updateMovie.title}
+					onChange={(event) => {
+						this.handleChanges(event, "title");
+					}}
 				/>
-				<textarea onChange="this.handleChangeDescription" type="text">
-					{this.redux.store.moviesReducer.description}
-				</textarea>
+				<textarea
+					type="text"
+					default={this.redux.store.moviesReducer.description}
+					value={this.state.updateMovie.description}
+					onChange={(event) => {
+						this.handleChanges(event, "description");
+					}}
+				></textarea>
 				<button onClick={this.cancel_detailReturnClick}>Cancel</button>
 				<button onClick={this.saveMovieEditToDB_detailReturnClick}>Save</button>
 			</div>
