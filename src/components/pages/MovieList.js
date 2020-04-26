@@ -17,21 +17,22 @@ import MovieListItem from "./MovieList";
 // nav to MovieDetails.js displaying click associated movie description - still to ADD - item
 
 class MovieList extends Component {
-	showDescription = (event, id) => {
-		this.props.dispatch({ type: "READ_MOVIE", payload: id });
-		this.props.history.push(`/MovieDetail/${id}`);
+	componentDidMount() {
+		this.props.dispatch({ type: "READ_ALL_MOVIES" });
+	}
+
+	showDescription = (event, movie_id) => {
+		this.props.history.push(`/${movie_id}`);
 	};
 
 	render() {
-		const itemID = this.props.item.id;
+		//const itemID = `this.props.item.${movie_id}`;
 
-		const movieListItems = this.props.reduxState.movieList.map(
-			(item, index) => (
-				<div key={index}>
-					<MovieListItem item={item} />
-				</div>
-			)
-		);
+		const movieListItem = this.props.reduxState.movieList.map((item, index) => (
+			<div key={index}>
+				<MovieListItem item={item} />
+			</div>
+		));
 
 		return (
 			<div className="ListDiv">
@@ -44,7 +45,7 @@ class MovieList extends Component {
 						<tr>
 							<td
 								onClick={(event) => {
-									this.showDescription(event, itemID);
+									this.showDescription();
 								}}
 							>
 								<img src="TBA" alt="Movie Poster" />
@@ -52,7 +53,7 @@ class MovieList extends Component {
 								<p>Click on poster to visit the movie detail page</p>
 							</td>
 							<td>
-								<pre>{movieListItems}</pre>
+								<pre>{movieListItem}</pre>
 								Movie title
 								<br />
 								Description
@@ -65,6 +66,6 @@ class MovieList extends Component {
 	}
 }
 
-const mapStateToRedux = (reduxState) => ({ reduxState });
+const mapStateToProps = (reduxState) => ({ reduxState });
 
-export default connect(mapStateToRedux)(MovieList);
+export default connect(mapStateToProps)(MovieList);
