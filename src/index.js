@@ -27,7 +27,9 @@ function* readAllMovies(action) {
 
 function* readMovie(action) {
 	try {
-		const response = yield axios.get(`/api/moviedetail/${action.payload}`);
+		const response = yield axios.get(
+			`/api/movie/moviedetail/${action.payload}`
+		);
 		yield put({ type: "READ_MOVIE", payload: response.data });
 	} catch (err) {
 		console.warn("Error with readMovie:", err);
@@ -36,7 +38,7 @@ function* readMovie(action) {
 
 function* updateMovie(action) {
 	try {
-		yield axios.put("api/movie", action.payload);
+		yield axios.put(`api/movie`, action.payload);
 		yield put({ type: "UPDATE_MOVIE" });
 	} catch (err) {
 		console.log("Error in updateMovie:", err);
@@ -44,6 +46,7 @@ function* updateMovie(action) {
 }
 
 // ----- GENRES SAGAS -----
+// ?? should the axios get go to "/api/movie/genre" or "/api/genre"??
 function* readAllGenres(action) {
 	try {
 		const response = yield axios.get("/api/movie");
@@ -64,7 +67,7 @@ function* readGenre(action) {
 
 function* updateGenre(action) {
 	try {
-		yield axios.put("api/movie", action.payload);
+		yield axios.put(`api/movie`, action.payload);
 		yield put({ type: "UPDATE_GENRE" });
 	} catch (err) {
 		console.log("Error in updateGenre:", err);
@@ -80,12 +83,12 @@ function* createGenre(action) {
 	}
 }
 
-function* disposeGenre(action) {
+function* disposeOfGenre(action) {
 	try {
-		yield axios.delete("api/movie", action.payload);
-		yield put({ type: "DISPOSEOF" });
+		yield axios.delete(`api/movie/${action.payload}`);
+		yield put({ type: "DISPOSEOF_GENRE" });
 	} catch (err) {
-		console.log("Error in disposeGenre:", err);
+		console.log("Error in disposeOfGenre:", err);
 	}
 }
 // STRETCH
@@ -110,7 +113,7 @@ function* rootSaga() {
 	yield takeEvery("CREATE_GENRE", createGenre);
 	yield takeEvery("READ_GENRE", readGenre);
 	yield takeEvery("UPDATE_GENRE", updateGenre);
-	yield takeEvery("DISPOSEOF_GENRE", disposeGenre);
+	yield takeEvery("DISPOSEOF_GENRE", disposeOfGenre);
 
 	// ----- ADMIN YIELDS -----
 	// yield takeEvery("AUTHENTICATE", authenticate);
