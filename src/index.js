@@ -10,7 +10,7 @@ import logger from "redux-logger";
 import createSagaMiddleware from "redux-saga";
 import { takeEvery, put } from "redux-saga/effects";
 // Import project file dependencies
-import "../src/components/styles/index.css";
+import "../src/components/styles/app.css";
 import App from "./components/App/App.js";
 
 // STRETCH - move sagas and reducers into separate files ex: src/redux/reducers and src/redux/sagas
@@ -27,9 +27,7 @@ function* readAllMovies(action) {
 
 function* readMovie(action) {
 	try {
-		const response = yield axios.get(
-			`/api/movie/moviedetail/${action.payload}`
-		);
+		const response = yield axios.get(`/api/movie/detail/${action.payload}`);
 		yield put({ type: "READ_MOVIE", payload: response.data });
 	} catch (err) {
 		console.warn("Error with readMovie:", err);
@@ -133,6 +131,15 @@ const moviesReducer = (state = [], action) => {
 	}
 };
 
+const movieDetailReducer = (state = [], action) => {
+	switch (action.type) {
+		case "READ_MOVIE":
+			return action.payload;
+		default:
+			return state;
+	}
+};
+
 // ----- GENRES REDUCER -----
 // Used to store the movie genres
 const genresReducer = (state = [], action) => {
@@ -148,6 +155,7 @@ const genresReducer = (state = [], action) => {
 const storeInstance = createStore(
 	combineReducers({
 		moviesReducer,
+		movieDetailReducer,
 		genresReducer,
 	}),
 	// Add sagaMiddleware to our store
