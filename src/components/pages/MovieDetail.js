@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import axios from "axios";
 import "../styles/MovieDetail.css";
 
 // !!! PRACTICE BRANCHING
@@ -9,15 +7,15 @@ import "../styles/MovieDetail.css";
 
 //STRETCH - on refresh url /details/1 for movie id 1
 
-function* movieListReturn() {
-	// nav to MovieList.js
-}
-
-function* goEditMovie() {
-	// nav to EditMovie.js
-}
-
 class MovieDetail extends Component {
+	movieListReturn() {
+		this.props.history.push("/MovieList");
+	}
+
+	goEditMovie() {
+		this.props.history.push("/EditMovie");
+	}
+
 	render() {
 		return (
 			<div className="DetailDiv">
