@@ -10,7 +10,7 @@ import logger from "redux-logger";
 import createSagaMiddleware from "redux-saga";
 import { takeEvery, put } from "redux-saga/effects";
 // Import project file dependencies
-import "../src/components/styles/app.css";
+import "../src/components/styles/index.css";
 import App from "./components/App/App.js";
 
 // STRETCH - move sagas and reducers into separate files ex: src/redux/reducers and src/redux/sagas

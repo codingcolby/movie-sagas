@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { HashRouter as Router, Route } from "react-router-dom";
 import "../styles/App.css";
 import MovieList from "../pages/MovieList";
-import MovieDetail from "../pages/MovieDetail";
-import EditMovie from "../pages/EditMovie";
+// import MovieDetail from "../pages/MovieDetail";
+// import EditMovie from "../pages/EditMovie";
 
 // Styling - Add and be consistent between pages
 // Styling - Consider route change animations
@@ -19,12 +19,12 @@ class App extends Component {
 						<Route path="/">
 							<MovieList />
 						</Route>
-						<Route path="/MovieDetail">
+						{/* <Route path="/MovieDetail">
 							<MovieDetail />
 						</Route>
 						<Route path="/EditMovie">
 							<EditMovie />
-						</Route>
+						</Route> */}
 					</div>
 				</Router>
 			</div>
