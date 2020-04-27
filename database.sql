@@ -47,6 +47,33 @@ CREATE TABLE "genre_associations"
 
 --------[ DATA! ]---------
 
+-- starter genre associations
+INSERT INTO "genre_associations" ("movie_id", "genre_id") VALUES
+(1,	8),
+(2,	2),
+(3,	13),
+(4,	2),
+(4,	1),
+(5,	6),
+(6,	7),
+(6,	8),
+(6,	1),
+(7,	1),
+(8,	6),
+(9,	2),
+(9,	4),
+(10, 11),
+(10, 7),
+(11,	11),
+(12,	3),
+(13,	6),
+(13,	10),
+(13,	7),
+(14,	1),
+(14,	4);
+
+
+
 -- starter movies
 INSERT INTO "movies" ("title", "poster", "description")
 VALUES 
