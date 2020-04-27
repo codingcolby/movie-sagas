@@ -7,24 +7,39 @@ The intension of this project was to create a full stack application utilizing t
 ## Views
 
 Home - List of all movies with poster image, title, description
+
 Detail - Movie title, description, genres (if any); a back button, an edit button
+
 Edit - User input box for title, a textarea box for description; a cancel button, a save button
 
 ## Built With
 
 The technologies employed in this project include:
+
 JavaScript
+
 Express
+
 Body-Parser
+
 React
+
 ReactDOM
+
 React-Redux
+
 React-Router-Dom - including HashRouter and BrowseRouter
+
 Redux - including createStore, combineReducers, applyMiddleware, Provider, logger
+
 Redux-Saga - including createSagaMiddleware, effects: takeEvery, put
+
 Axios
+
 SQL - via Postgres
+
 HTML
+
 CSS
 
 ## Project Status
