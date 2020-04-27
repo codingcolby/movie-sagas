@@ -1,12 +1,14 @@
 import React, { Component } from "react";
+import "../styles/MovieList.css";
 
 class MovieListItem extends Component {
 	render() {
 		return (
-			<div>
-				<p>{this.props.item.poster}</p>;<p>{this.props.item.title}</p>;
-				<p>{this.props.item.description}</p>;
-			</div>
+			<p>
+				{this.props.store.item.poster}
+				{this.props.store.item.title}
+				{this.props.store.item.description}
+			</p>
 		);
 	}
 }

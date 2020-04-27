@@ -1,5 +1,5 @@
 import React from "react";
-import MovieList from "../pages/MovieList";
+import Vault from "../pages/Vault";
 import { HashRouter as Router, Route } from "react-router-dom";
 import "../styles/App.css";
 
@@ -21,7 +21,7 @@ const App = () => (
 		</header>
 		<div className="Temp_align">
 			<Router>
-				<Route exact path="/movies" component={MovieList} />
+				<Route exact path="/" component={Vault} />
 			</Router>
 		</div>
 	</div>

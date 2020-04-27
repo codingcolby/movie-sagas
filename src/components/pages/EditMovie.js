@@ -64,11 +64,11 @@ class EditMovie extends Component {
 		return (
 			<div className="EditDiv">
 				<p className="Announce">
-					Edit Page for {this.redux.store.moviesReducer.title}
+					Edit Page for {this.props.store.moviesReducer.title}
 				</p>
 				<input
 					type="text"
-					default={this.redux.store.moviesReducer.title}
+					default={this.props.store.moviesReducer.title}
 					value={this.state.updateMovie.title}
 					onChange={(event) => {
 						this.handleChanges(event, "title");
@@ -76,7 +76,7 @@ class EditMovie extends Component {
 				/>
 				<textarea
 					type="text"
-					default={this.redux.store.moviesReducer.description}
+					default={this.props.store.moviesReducer.description}
 					value={this.state.updateMovie.description}
 					onChange={(event) => {
 						this.handleChanges(event, "description");
@@ -89,8 +89,8 @@ class EditMovie extends Component {
 	}
 }
 
-const mapStoreToRedux = (store) => ({
+const putStoreOnProps = (store) => ({
 	store,
 });
 
-export default connect(mapStoreToRedux)(EditMovie);
+export default connect(putStoreOnProps)(EditMovie);
