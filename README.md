@@ -1,4 +1,4 @@
--# Movie Night Options! - A Project Using React-Redux with Sagas
+# Movie Night Options! - A Project Using React-Redux with Sagas
 
 ## Description
 
